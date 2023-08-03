@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "technoforum-bias",
+  "private_key_id": "ea580e37398a3bb5918e450c2fc8132176de026f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDVL7s65P7FZX2a\nL+SIl8d4gzc2wo9U8qLkqJgZM4sV9RIe1qAo7E32VPcB9l62d4uSoOwubVLZsm0Y\nNQM/k73rUCDd+5YgxuYI2U5t2FOEeykBCG30RJbpWC8Qqi9Zyj0A+YHdxjFwqgGV\neyyICTzmI0X6ELs9a/SOBd1ErzlJgi/Y4Wqvt2BpKOfK9sV/EzPnS0BxRLMABxr2\nG3zpEUzjcbm+emYgTFPP9Tg2R+YoHwGl9rfHRQa0vaRZSnqXcu/I5Xve0wyYnvhr\njGWlzuwww/jeI4KYKE1vn+uWmKC/YSesEOIUpDzkjjT6umcyVfy5FgHvZ4ELhnQ/\nbbxAEOpVAgMBAAECggEAF7wjM8joBpEonUCEyKJhXmz5ejrKG3KSKTQODww6iXzK\nAi3yEexRN8I45/qGi/keTHpnITohtcQUOlQ4otzvkaHPrvdCPS730HdlMHybu828\ngHVwTHhQdvVO9COGdxA5n4Cn8UmOGpWK7JoUmKaypYq60T8IoauBxEgp3OpHTgQg\n98qaSk4eYHAQAaVhfDpthDFcYWeUDuHyEvZyD0916xe01eLa83LxsbDAfj7CUoKX\nAWyjS38wQTkzwF1keQqSHZ7pF96EWFI2H/EX2ZrzWWRKmsb9PBDWtQDNvr6yIdrw\nMxVTemPlhh4EzpB2hUaPd7eWAWQmaxsJmwgPqwQalwKBgQD2u5rftpZzE6OIutSK\nUzd7iLZHeeM7s5K3HkAxYkYS0zIbdLDRz6l0rCf5ph5RLtxonYR6G1FdD1XMLAGZ\nfWt/EjxtiFmuWBAy3Hr1S1OVD7/7eMtpBvaj8gWY0OG1EYCzkqQ7F/IvfDsPkpAr\nhbGPPgchhhyHrzHobWAvsUE/nwKBgQDdMZHnO7TJqvkwnstobXQNUwaPBFQiiK2v\nk/u/hvN2LieEaNlJJsz4EDDhV3Ar1MHIEHnLSfEKPTQqJsD26NaCIGyUNqpW+kej\nXONzB89shN0LleGiRnExJ09j0nPb/okSVVTqOHNArykZWigOCZ2T1jU3kGPWtHdT\nax/STgRBiwKBgDp4jSRVFeRhlBC0DehV/kEFTgU0Snh8ftlsjtPlMSwG5soA5mJi\nbwsaPUL5bhfZHhygr6NsU+TU3IVNLHfedBoiDTX76Rza+8PB4lW9KyqZF+sVXkce\nglap5U+ouMR7SF/F8aubaiZ8r1ZqakYWIdULYw87xAkXqKEnQnMq84aLAoGBAIr6\nzGv3zd4wuSXdgHz62MJOen59/8c7DbaWSsXKq0qEMXw2zN/zqzHqKmxMHkTMB34H\nLB+ZNAR09EPP2crJ/Y4BhXeS6XCBDWYNxTPPonrS+HiBEiZ+ED0MMAvOfdGqmsGU\nMCiCk5f+9tnhFe3MCOCM5R8mcDTFa3xUgMgJEQ+FAoGAMCtvQfMFWXHh8R0QF/Zp\nzqIsiVpQj/ct/SHO/uATQFvq9nzDU/1RxX+URphoyiz21M6+uc/3OwVvGdb25Yeh\nHem/udtfgtJiKl3ZWCWgUzxRNh5dzIvbbWgSMNODTq5LOEDRBbq8QBJIMExrdCsH\naqktNSAGCFDwD1vlFYTpnJk=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-9a0q1@technoforum-bias.iam.gserviceaccount.com",
+  "client_id": "112031044735684999359",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-9a0q1%40technoforum-bias.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
