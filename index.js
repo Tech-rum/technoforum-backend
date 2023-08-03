@@ -36,12 +36,12 @@ app.post("/api/register", (req, res) => {
         address: body.address
     };
 
-    console.log(body)
+    console.log(details)
 
     // Save the details to the Firestore database
     db.collection("userdata")
-        .doc(details.batch)
-        .collection(details.branch)
+        .doc(req.body.batch)
+        .collection(req.body.branch)
         .doc(details.email)
         .set(details)
         .then(() => {
