@@ -37,7 +37,11 @@ app.post("/api/register", (req, res) => {
     };
 
     // Save the details to the Firestore database
-    db.collection("userdata").doc(details.year).collection(details.batch).doc(details.semester).set(details)
+    db.collection("userdata")
+        .doc(details.year)
+        .collection(details.batch)
+        .doc(details.email)
+        .set(details)
         .then(() => {
             res.status(200).json({ message: "Registration successful!" });
         })
