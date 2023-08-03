@@ -40,8 +40,8 @@ app.post("/api/register", (req, res) => {
 
     // Save the details to the Firestore database
     db.collection("userdata")
-        .doc(details.year)
-        .collection(details.batch)
+        .doc(details.batch)
+        .collection(details.branch)
         .doc(details.email)
         .set(details)
         .then(() => {
