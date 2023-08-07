@@ -37,8 +37,8 @@ function generateAccessToken() {
     }
   
     return {
-      access_token: token,
-      expiry_date: expiryDate.toISOString(),
+      token: token,
+      expiry: expiryDate.toISOString(),
     };
   }
   
@@ -63,7 +63,23 @@ const authenticateAdmin = (req, res, next) => {
 }
 
 
-app.get("/api/generate-token", (req, res)=> {
+app.get("/api/get-token", (req, res)=> {
+    db.collection("admin").doc("accesstoken").get().then( async (doc) => {
+        var token = await doc.data();
+        res.status(200).json(token);
+    }).catch((error) => {
+        res.status(500).json(error);
+    })
+})
+
+app.post("/api/generate-token", async (req, res) => {
+    const accesstoken = generateAccessToken();
+
+    await db.collection("admin").doc("accesstoken").set({
+        token: accesstoken.token,
+        expiry: accesstoken.expiry
+    })
+
     db.collection("admin").doc("accesstoken").get().then( async (doc) => {
         var token = await doc.data();
         res.status(200).json(token);
