@@ -20,7 +20,36 @@ const db = admin.firestore();
 app.use(bodyParser.json()); // Add body-parser middleware
 app.use(cors()); // Add cors middleware
 
-// Api Calls -------------------------------------------------------------------//
+
+//Middleware to authenticate admin
+
+const authenticateAdmin = (req, res, next) => {
+    const admin = {
+        email: "email", //email of admin hardcoded
+        password: "password" //password of admin hardcoded
+    }
+
+    const {email, password} = req.body;
+
+    if(email == admin.email && password == admin.password)
+    next();
+    else{
+        res.status(400).json({
+            message: "invalid admin email and password"
+        })
+    }
+}
+
+
+//Admin Api calls
+
+app.post("/admin/login", authenticateAdmin, (req, res) => {
+    res.status(200).send({
+        message: "welcome to the admin dashboard"
+    })
+})
+
+//User Api Calls -------------------------------------------------------------------//
 
 app.post("/api/register", (req, res) => {
     const body = req.body; // Parsed request body from body-parser
