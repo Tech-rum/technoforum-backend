@@ -21,6 +21,28 @@ app.use(bodyParser.json()); // Add body-parser middleware
 app.use(cors()); // Add cors middleware
 
 
+// generate access token -----------------------------------------------------//
+
+function generateAccessToken() {
+    const tokenLength = 10;
+    const expiryDate = new Date();
+    expiryDate.setMonth(expiryDate.getMonth() + 1);
+  
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let token = '';
+  
+    for (let i = 0; i < tokenLength; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      token += characters.charAt(randomIndex);
+    }
+  
+    return {
+      access_token: token,
+      expiry_date: expiryDate.toISOString(),
+    };
+  }
+  
+
 //Middleware to authenticate admin
 
 const authenticateAdmin = (req, res, next) => {
@@ -39,6 +61,20 @@ const authenticateAdmin = (req, res, next) => {
         })
     }
 }
+
+app.get("", (req, res) => {
+    
+});
+
+
+app.post("/api/generate-token", (req, res)=> {
+    db.collection("admin").doc("accesstoken").get().then( async (doc) => {
+        var token = await doc.data();
+        res.status(200).json(token);
+    }).catch((error) => {
+        res.status(500).json(error);
+    })
+})
 
 
 //Admin Api calls
