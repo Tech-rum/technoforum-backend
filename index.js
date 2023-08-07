@@ -197,15 +197,16 @@ async function sendEmail(details, virtualid) {
     `;
 
     const transporter = nodemailer.createTransport({
-        service: 'hotmail',
+        host: 'smtp-relay.brevo.com',
+        port: 587,
         auth: {
-            user: 'technoforumbias@outlook.com',
-            pass: 'Technoforum101'
+            user: 'technoforum010@gmail.com',
+            pass: 'tTA49B0Qzy8FbVP6',
         }
     });
 
     const mailOptions = {
-        from: 'technoforumbias@outlook.com',
+        from: 'technoforum010@gmail.com',
         to: details.email,
         subject: 'Welcome to Technoforum Society!',
         html: emailContent
