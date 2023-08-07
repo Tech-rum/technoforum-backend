@@ -62,12 +62,8 @@ const authenticateAdmin = (req, res, next) => {
     }
 }
 
-app.get("", (req, res) => {
-    
-});
 
-
-app.post("/api/generate-token", (req, res)=> {
+app.get("/api/generate-token", (req, res)=> {
     db.collection("admin").doc("accesstoken").get().then( async (doc) => {
         var token = await doc.data();
         res.status(200).json(token);
