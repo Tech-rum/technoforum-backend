@@ -43,25 +43,7 @@ const authenticateJwt = (req, res, next) => {
     //email and password of technoforum
   }]
 
-  //admin login in route
-
-  app.post('/admin/login', (req, res) => {
-    const { email, password } = req.body;
-    const admin = ADMIN.find(a => a.email === email && a.password === password);
-    if (admin) {
-      const token = jwt.sign({ email, role: 'admin' }, SECRET, { expiresIn: '1h' });
-      res.json({ message: 'Logged in successfully', token });
-    } else {
-      res.status(403).json({ message: 'Invalid username or password' });
-    }
-  });
-
-  app.get('/admin/me', authenticateJwt, (req, res) => {
-    res.status(200).json({
-      email: req.user.email
-    })
-  })
-  
+ 
 
 // Firebase connection to database
 const serviceAccount = require('./key.json');
@@ -274,23 +256,6 @@ async function sendEmail(details, virtualid) {
     });
 }
 
-// Middleware to authenticate admin
-// const authenticateAdmin = (req, res, next) => {
-//     const admin = {
-//         email: "email", // Replace with actual admin email
-//         password: "password" // Replace with actual admin password
-//     }
-
-//     const { email, password } = req.body;
-
-//     if (email == admin.email && password == admin.password)
-//         next();
-//     else {
-//         res.status(400).json({
-//             message: "Invalid admin email and password"
-//         })
-//     }
-// }
 
 // ... Rest of your code ...
 
@@ -322,17 +287,24 @@ app.post("/api/generate-token", async (req, res) => {
 
 //Admin Api calls
 
-// app.post("/admin/login", authenticateAdmin, (req, res) => {
-//     res.status(200).send({
-//         message: "welcome to the admin dashboard"
-//     })
-// })
+ //admin login in route
 
-// app.get('/admin/me', authenticateAdmin, (req, res) => {
-//     res.status(200).json({
-//       email: req.body.email
-//     })
-//   })
+ app.post('/admin/login', (req, res) => {
+  const { email, password } = req.body;
+  const admin = ADMIN.find(a => a.email === email && a.password === password);
+  if (admin) {
+    const token = jwt.sign({ email, role: 'admin' }, SECRET, { expiresIn: '1h' });
+    res.json({ message: 'Logged in successfully', token });
+  } else {
+    res.status(403).json({ message: 'Invalid username or password' });
+  }
+});
+
+app.get('/admin/me', authenticateJwt, (req, res) => {
+  res.status(200).json({
+    email: req.user.email
+  })
+})
 
 //User Api Calls -------------------------------------------------------------------//
 
