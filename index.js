@@ -2,11 +2,66 @@ const express = require('express');
 const admin = require('firebase-admin');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const jwt = require("jsonwebtoken");
 const nodemailer = require('nodemailer');
 const JsBarcode = require('jsbarcode');
 
 const port = process.env.PORT || 5000;
 const app = express();
+
+// Middleware
+app.use(bodyParser.json());
+app.use(cors());
+
+//secret key for jwt
+const SECRET = "techno-secret-key";
+
+//jwt authentication  middleware
+
+const authenticateJwt = (req, res, next) => {
+    const authHeader = req.headers.authorization;
+  
+    if (authHeader) {
+      const token = authHeader.split(' ')[1];
+  
+      jwt.verify(token, SECRET, (err, user) => {
+        if (err) {
+          return res.sendStatus(403);
+        }
+  
+        req.user = user;
+        next();
+      });
+    } else {
+      res.sendStatus(401);
+    }
+  };
+  //Admin
+  const ADMIN = [{
+    email: "email",
+    password: "password"//this will be encrypted
+    //email and password of technoforum
+  }]
+
+  //admin login in route
+
+  app.post('/admin/login', (req, res) => {
+    const { email, password } = req.body;
+    const admin = ADMIN.find(a => a.email === email && a.password === password);
+    if (admin) {
+      const token = jwt.sign({ email, role: 'admin' }, SECRET, { expiresIn: '1h' });
+      res.json({ message: 'Logged in successfully', token });
+    } else {
+      res.status(403).json({ message: 'Invalid username or password' });
+    }
+  });
+
+  app.get('/admin/me', authenticateJwt, (req, res) => {
+    res.status(200).json({
+      email: req.user.email
+    })
+  })
+  
 
 // Firebase connection to database
 const serviceAccount = require('./key.json');
@@ -16,9 +71,7 @@ admin.initializeApp({
 });
 const db = admin.firestore();
 
-// Middleware
-app.use(bodyParser.json());
-app.use(cors());
+
 
 // Function to generate access token
 function generateAccessToken() {
@@ -222,22 +275,22 @@ async function sendEmail(details, virtualid) {
 }
 
 // Middleware to authenticate admin
-const authenticateAdmin = (req, res, next) => {
-    const admin = {
-        email: "email", // Replace with actual admin email
-        password: "password" // Replace with actual admin password
-    }
+// const authenticateAdmin = (req, res, next) => {
+//     const admin = {
+//         email: "email", // Replace with actual admin email
+//         password: "password" // Replace with actual admin password
+//     }
 
-    const { email, password } = req.body;
+//     const { email, password } = req.body;
 
-    if (email == admin.email && password == admin.password)
-        next();
-    else {
-        res.status(400).json({
-            message: "Invalid admin email and password"
-        })
-    }
-}
+//     if (email == admin.email && password == admin.password)
+//         next();
+//     else {
+//         res.status(400).json({
+//             message: "Invalid admin email and password"
+//         })
+//     }
+// }
 
 // ... Rest of your code ...
 
@@ -269,11 +322,17 @@ app.post("/api/generate-token", async (req, res) => {
 
 //Admin Api calls
 
-app.post("/admin/login", authenticateAdmin, (req, res) => {
-    res.status(200).send({
-        message: "welcome to the admin dashboard"
-    })
-})
+// app.post("/admin/login", authenticateAdmin, (req, res) => {
+//     res.status(200).send({
+//         message: "welcome to the admin dashboard"
+//     })
+// })
+
+// app.get('/admin/me', authenticateAdmin, (req, res) => {
+//     res.status(200).json({
+//       email: req.body.email
+//     })
+//   })
 
 //User Api Calls -------------------------------------------------------------------//
 
