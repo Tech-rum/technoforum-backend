@@ -287,6 +287,34 @@ app.post("/api/generate-token", async (req, res) => {
 
 //Admin Api calls
 
+app.post("/events", authenticateJwt, (req, res) => {
+  const event = {
+    title: req.body.title,
+    venue: req.body.venue,
+    date: req.body.date,
+    time: req.body.time,
+    description: req.body.description,
+    link: req.body.link
+  }
+  db.collection("admin").doc("events").update({
+    events: admin.firestore.FieldValue.arrayUnion(event)
+  }).then(() => {
+    res.status(200).json({message: "data added successfully"})
+  }).catch(error => {
+    console.log(error);
+  })
+})
+
+//admin route to get all courses
+
+app.get("/events", authenticateJwt, async (req, res) => {
+    db.collection("admin").doc("events").get().then(async (doc) => {
+      const data = await doc.data();
+      res.json(data.events)
+    })
+ } );
+
+
  //admin login in route
 
  app.post('/admin/login', (req, res) => {
