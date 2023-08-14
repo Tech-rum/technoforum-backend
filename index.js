@@ -287,8 +287,12 @@ app.post("/api/generate-token", async (req, res) => {
 
 //Admin Api calls
 
-app.post("/events", authenticateJwt, (req, res) => {
+app.post("/events", authenticateJwt,async (req, res) => {
+  const eventArray = await db.collection("admin").doc("events").get();
+  const data = await eventArray.data();
+  const arrayLength = data.events.length + 1;
   const event = {
+    id: arrayLength,
     title: req.body.title,
     venue: req.body.venue,
     date: req.body.date,
@@ -299,7 +303,8 @@ app.post("/events", authenticateJwt, (req, res) => {
   db.collection("admin").doc("events").update({
     events: admin.firestore.FieldValue.arrayUnion(event)
   }).then(() => {
-    res.status(200).json({message: "data added successfully"})
+    res.status(200).json({message: "data added successfully", eventId: arrayLength})
+    
   }).catch(error => {
     console.log(error);
   })
@@ -314,6 +319,33 @@ app.get("/events", authenticateJwt, async (req, res) => {
     })
  } );
 
+app.get("/event/:eventId", async (req, res) => {
+  const eventId =  req.params.eventId;
+  const eventArray = await db.collection("admin").doc("events").get();
+  const data = await eventArray.data();
+   const arrayLength = data.events.length;
+   
+  
+    data.events.forEach((map) => {
+      if(map.id == eventId){
+        res.json(map);
+        // console.log({map});
+      }
+     // else{res.status(400).json("error");}
+    })
+    // for (let i = 0; i < arrayLength; i++) {
+    //   if (data.events[i].id == eventId) {
+    //     // res.status(200).json(data.events[i]);
+    //     console.log(data.events[i].id);
+    //     break;
+    //   }
+      
+    //   // res.status(400).json("error");
+    // }
+    
+  }
+
+  )
 
  //admin login in route
 
